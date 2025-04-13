@@ -1,6 +1,4 @@
 ---
-import { date } from 'astro:schema';
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
 import { google } from 'googleapis';
@@ -95,14 +93,6 @@ if (spotifyClientId && spotifyClientSecret && spotifyPlaylistId) {
             </div>
         </div>
         
-        <div class="block books">
-            <img src="/api/placeholder/300/180" alt="Book cover">
-            <div class="block-content">
-                <h3>TBD</h3>
-                <p>TBD</p>
-                <!-- <a href="#" class="button">My Bookshelf</a> -->
-            </div>
-        </div>
         
         <div class="block music">
             <a href={spotifyUrl}><img src={spotifyImageUrl} alt="Album artwork"></a>
