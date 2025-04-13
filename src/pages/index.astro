@@ -9,7 +9,6 @@ const youtube = google.youtube('v3');
 
 const apiKey = import.meta.env.YOUTUBE_API_KEY;
 
-let randomIndex;
 let randomItem ;
 let randomVideoId ;
 let randomVideoTitle ;
@@ -26,12 +25,56 @@ if (apiKey) {
 
 const data = res.data;
 
-randomIndex = Math.floor(Math.random() * data.items.length);
+const randomIndex = Math.floor(Math.random() * data.items.length);
 randomItem = data.items[randomIndex];
 randomVideoId = randomItem.contentDetails.videoId;
 randomVideoTitle = randomItem.snippet.title;
 randomVideoUrl = `https://www.youtube.com/watch?v=${randomVideoId}`;
 randomVideoThumbnail = randomItem.snippet.thumbnails.high.url;
+}
+
+let songName;
+let artistName;
+let spotifyUrl;
+let spotifyImageUrl;
+
+const spotifyClientId = import.meta.env.SPOTIFY_CLIENT_ID;
+const spotifyClientSecret = import.meta.env.SPOTIFY_CLIENT_SECRET;
+const spotifyPlaylistId = import.meta.env.SPOTIFY_PLAYLIST_ID;
+
+if (spotifyClientId && spotifyClientSecret && spotifyPlaylistId) {
+
+	const resToken = await fetch(`https://accounts.spotify.com/api/token`, {
+		headers: {
+			
+			'Content-Type': 'application/x-www-form-urlencoded ',
+		},
+		method: 'POST',
+		body: new URLSearchParams({
+			'grant_type': 'client_credentials',
+			'client_id': spotifyClientId,
+			'client_secret': spotifyClientSecret,
+		}),
+	})
+	const tokenData = await resToken.json();
+	const spotifyAccessToken = tokenData.access_token;
+	if (!spotifyAccessToken) {
+		throw new Error('Failed to get Spotify access token');
+	}
+
+	const res = await fetch(`https://api.spotify.com/v1/playlists/${spotifyPlaylistId}/tracks`, {
+		headers: {
+			'Authorization': `Bearer ${spotifyAccessToken}`,
+			'Content-Type': 'application/json',
+		},
+	});
+	const data = await res.json();
+	const randomIndex = Math.floor(Math.random() * data.total);
+	const randomItem = data.items[randomIndex];
+	songName = randomItem.track.name;
+	artistName = randomItem.track.artists[0].name;
+	spotifyUrl = randomItem.track.external_urls.spotify;
+	spotifyImageUrl = randomItem.track.album.images[0].url;
 }
 
 ---
@@ -62,14 +105,15 @@ randomVideoThumbnail = randomItem.snippet.thumbnails.high.url;
         </div>
         
         <div class="block music">
-            <img src="/api/placeholder/300/180" alt="Album artwork">
+            <a href={spotifyUrl}><img src={spotifyImageUrl} alt="Album artwork"></a>
             <div class="block-content">
-                <h3>TBD</h3>
-                <p>TBD</p>
+                <h3>Her er en sang jeg liker</h3>
+                <p>{songName} av {artistName}</p>
                 <!-- <a href="#" class="button">My Playlists</a> -->
             </div>
         </div>
     </div>
+
 </Layout>
 
 
