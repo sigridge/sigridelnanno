@@ -1,253 +1,89 @@
 ---
-import Layout from '../layouts/Layout.astro';
-
-import { google } from 'googleapis';
-
-const youtube = google.youtube('v3');
-
-const apiKey = import.meta.env.YOUTUBE_API_KEY;
-
-let randomItem ;
-let randomVideoId ;
-let randomVideoTitle ;
-let randomVideoUrl;
-let randomVideoThumbnail;
-
-if (apiKey) {
-	const res = await youtube.playlistItems.list({
-	auth: apiKey,
-	part: 'snippet, status, contentDetails',
-	maxResults: 10,
-	playlistId: 'PLKy3vR2ECTg12Z0OhylwVcGHQF6H-9Xe4',
-});
-
-const data = res.data;
-
-const randomIndex = Math.floor(Math.random() * data.items.length);
-randomItem = data.items[randomIndex];
-randomVideoId = randomItem.contentDetails.videoId;
-randomVideoTitle = randomItem.snippet.title;
-randomVideoUrl = `https://www.youtube.com/watch?v=${randomVideoId}`;
-randomVideoThumbnail = randomItem.snippet.thumbnails.high.url;
-}
-
-let songName;
-let artistName;
-let spotifyUrl;
-let spotifyImageUrl;
-
-const spotifyClientId = import.meta.env.SPOTIFY_CLIENT_ID;
-const spotifyClientSecret = import.meta.env.SPOTIFY_CLIENT_SECRET;
-const spotifyPlaylistId = import.meta.env.SPOTIFY_PLAYLIST_ID;
-
-if (spotifyClientId && spotifyClientSecret && spotifyPlaylistId) {
-
-	const resToken = await fetch(`https://accounts.spotify.com/api/token`, {
-		headers: {
-			
-			'Content-Type': 'application/x-www-form-urlencoded ',
-		},
-		method: 'POST',
-		body: new URLSearchParams({
-			'grant_type': 'client_credentials',
-			'client_id': spotifyClientId,
-			'client_secret': spotifyClientSecret,
-		}),
-	})
-	const tokenData = await resToken.json();
-	const spotifyAccessToken = tokenData.access_token;
-	if (!spotifyAccessToken) {
-		throw new Error('Failed to get Spotify access token');
-	}
-
-	const res = await fetch(`https://api.spotify.com/v1/playlists/${spotifyPlaylistId}/tracks`, {
-		headers: {
-			'Authorization': `Bearer ${spotifyAccessToken}`,
-			'Content-Type': 'application/json',
-		},
-	});
-	const data = await res.json();
-	const randomIndex = Math.floor(Math.random() * data.total);
-	const randomItem = data.items[randomIndex];
-	songName = randomItem.track.name;
-	artistName = randomItem.track.artists[0].name;
-	spotifyUrl = randomItem.track.external_urls.spotify;
-	spotifyImageUrl = randomItem.track.album.images[0].url;
-}
-
+import BookBlock from "../components/BookBlock.astro";
+import SpotifyBlock from "../components/SpotifyBlock.astro";
+import YoutubeBlock from "../components/YoutubeBlock.astro";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-	<section class="hero">
-        <h1>Velkommen til nettsia mi</h1>
-        <p>Hvordan i huleste fant du den?</p>
-    </section>
-    
-    <div class="interest-blocks">
-        <div class="block youtube">
-            <a href={randomVideoUrl}><img src={randomVideoThumbnail} alt="YouTube thumbnail"></a>
-            <div class="block-content">
-                <h3>Tilfeldig youtube anbefaling</h3>
-                <p>{randomVideoTitle}</p>
-                <!-- <a href="#" class="button">See More Videos</a> -->
-            </div>
-        </div>
-        
-        
-        <div class="block music">
-            <a href={spotifyUrl}><img src={spotifyImageUrl} alt="Album artwork"></a>
-            <div class="block-content">
-                <h3>Her er en sang jeg liker</h3>
-                <p>{songName} av {artistName}</p>
-                <!-- <a href="#" class="button">My Playlists</a> -->
-            </div>
-        </div>
-    </div>
+<Layout title="Sigrid Elnan - Hjem">
+  <section class="hero">
+    <h1>Velkommen til nettsia mi 😁</h1>
+    <p>Hvordan i huleste fant du den? 🤔</p>
+  </section>
 
+  <div class="interest-blocks">
+    <YoutubeBlock />
+    <BookBlock />
+    <SpotifyBlock />
+  </div>
 </Layout>
 
-
 <style>
-	
-	
-	.hero {
-		height: 35vh; /* Reduced from 50vh to 35vh */
-		background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-		color: white;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		text-align: center;
-		padding: 2rem;
-		box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
-	}
-	
-	.hero h1 {
-		font-size: 2.5rem;
-		margin-bottom: 1rem;
-		animation: fadeIn 1.5s ease;
-		text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-	}
-	
-	.hero p {
-		font-size: 1.5rem;
-		max-width: 600px;
-		animation: fadeIn 2s ease;
-		text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-	}
-	
-	.interest-blocks {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: 2rem;
-		padding: 4rem 2rem;
-		max-width: 1200px;
-		margin: 0 auto;
-	}
-	
-	.block {
-		background-color: var(--card-bg);
-		border-radius: 10px;
-		box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-		overflow: hidden;
-		width: 300px;
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
-		border: 1px solid #2a2a2a;
-	}
-	
-	.block:hover {
-		transform: translateY(-10px);
-		box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-		border-color: var(--secondary-blue);
-	}
-	
-	.block img {
-		width: 100%;
-		height: 180px;
-		object-fit: cover;
-		opacity: 0.8;
-		transition: opacity 0.3s ease;
-	}
-	
-	.block:hover img {
-		opacity: 1;
-	}
-	
-	.block-content {
-		padding: 1.5rem;
-	}
-	
-	.block h3 {
-		color: var(--secondary-blue);
-		margin-bottom: 0.5rem;
-		font-size: 1.3rem;
-	}
-	
-	.block p {
-		color: var(--text-secondary);
-		margin-bottom: 1rem;
-	}
-	
-	.button {
-		display: inline-block;
-		background-color: var(--secondary-blue);
-		color: white;
-		padding: 0.5rem 1rem;
-		border-radius: 5px;
-		text-decoration: none;
-		font-weight: bold;
-		transition: all 0.3s ease;
-	}
-	
-	.button:hover {
-		background-color: #3498db;
-		box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
-	}
-	
-	.youtube {
-		border-top: 4px solid #ff0000;
-	}
-	
-	.books {
-		border-top: 4px solid #06d6a0;
-	}
-	
-	.music {
-		border-top: 4px solid #9b59b6;
-	}
-	
-	
-	
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-			transform: translateY(20px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-	
-	@media (max-width: 768px) {
-		.interest-blocks {
-			flex-direction: column;
-			align-items: center;
-		}
-		
-		.block {
-			width: 100%;
-			max-width: 400px;
-		}
-		
-		.hero h1 {
-			font-size: 2rem;
-		}
-		
-		.hero p {
-			font-size: 1.2rem;
-		}
-	}
+  .hero {
+    height: 35vh; /* Reduced from 50vh to 35vh */
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    animation: fadeIn 1.5s ease;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero p {
+    font-size: 1.5rem;
+    max-width: 600px;
+    animation: fadeIn 2s ease;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .interest-blocks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .interest-blocks {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .block {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+    }
+  }
 </style>

@@ -1,0 +1,122 @@
+---
+let songName;
+let artistName;
+let spotifyUrl;
+let spotifyImageUrl;
+
+const spotifyClientId = import.meta.env.SPOTIFY_CLIENT_ID;
+const spotifyClientSecret = import.meta.env.SPOTIFY_CLIENT_SECRET;
+const spotifyPlaylistId = import.meta.env.SPOTIFY_PLAYLIST_ID;
+
+if (spotifyClientId && spotifyClientSecret && spotifyPlaylistId) {
+  const resToken = await fetch(`https://accounts.spotify.com/api/token`, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded ",
+    },
+    method: "POST",
+    body: new URLSearchParams({
+      grant_type: "client_credentials",
+      client_id: spotifyClientId,
+      client_secret: spotifyClientSecret,
+    }),
+  });
+  const tokenData = await resToken.json();
+  const spotifyAccessToken = tokenData.access_token;
+  if (!spotifyAccessToken) {
+    throw new Error("Failed to get Spotify access token");
+  }
+
+  const res = await fetch(
+    `https://api.spotify.com/v1/playlists/${spotifyPlaylistId}/tracks`,
+    {
+      headers: {
+        Authorization: `Bearer ${spotifyAccessToken}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const data = await res.json();
+  const randomIndex = Math.floor(Math.random() * data.total);
+  const randomItem = data.items[randomIndex];
+  songName = randomItem.track.name;
+  artistName = randomItem.track.artists[0].name;
+  spotifyUrl = randomItem.track.external_urls.spotify;
+  spotifyImageUrl = randomItem.track.album.images[0].url;
+}
+---
+
+<div class="block music">
+  <a href={spotifyUrl}><img src={spotifyImageUrl} alt="Album artwork" /></a>
+  <div class="block-content">
+    <h3>Her er en sang jeg liker</h3>
+    <p>{songName} av {artistName}</p>
+    <!-- <a href="#" class="button">My Playlists</a> -->
+  </div>
+</div>
+
+<style>
+  .block {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    width: 300px;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    border: 1px solid #2a2a2a;
+  }
+
+  .block:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    border-color: var(--secondary-blue);
+  }
+
+  .block img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+
+  .block:hover img {
+    opacity: 1;
+  }
+
+  .block-content {
+    padding: 1.5rem;
+  }
+
+  .block h3 {
+    color: var(--secondary-blue);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+  }
+
+  .block p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .button {
+    display: inline-block;
+    background-color: var(--secondary-blue);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+
+  .button:hover {
+    background-color: #3498db;
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+  }
+
+  .music {
+    border-top: 4px solid #1ed760;
+  }
+</style>

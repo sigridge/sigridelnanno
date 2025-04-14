@@ -1,0 +1,349 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+export const books = [
+  {
+    bookName: "Forging Hephaestus (Villains' Code, #1)",
+    authorName: "Drew Hayes",
+    bookUrl: "https://www.goodreads.com/book/show/33369873-forging-hephaestus",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1743118138i/33244647.jpg",
+  },
+  {
+    bookName: "The Invisible Life of Addie LaRue",
+    authorName: "V.E. Schwab",
+    bookUrl:
+      "https://www.goodreads.com/book/show/50623864-the-invisible-life-of-addie-larue",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1584633432i/50623864.jpg",
+  },
+  {
+    bookName: "The Priory of the Orange Tree",
+    authorName: "Samantha Shannon",
+    bookUrl:
+      "https://www.goodreads.com/book/show/40275288-the-priory-of-the-orange-tree",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1700221964i/40275288.jpg",
+  },
+  {
+    bookName: "The House in the Cerulean Sea",
+    authorName: "TJ Klune",
+    bookUrl:
+      "https://www.goodreads.com/book/show/45047384-the-house-in-the-cerulean-sea",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1569514209i/45047384.jpg",
+  },
+  {
+    bookName: "The Thursday Murder Club (Thursday Murder Club, #1)",
+    authorName: "Richard Osman",
+    bookUrl:
+      "https://www.goodreads.com/book/show/46000520-the-thursday-murder-club",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1582287822i/46000520.jpg",
+  },
+  {
+    bookName: "We Solve Murders (We Solve Murders, #1)",
+    authorName: "Richard Osman",
+    bookUrl: "https://www.goodreads.com/book/show/203956647-we-solve-murders",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1708482199i/203956647.jpg",
+  },
+  {
+    bookName: "Gallant",
+    authorName: "V.E. Schwab",
+    bookUrl: "https://www.goodreads.com/book/show/58064046-gallant",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1637374861i/58490066.jpg",
+  },
+  {
+    bookName: "The Midnight Library",
+    authorName: "Matt Haig",
+    bookUrl:
+      "https://www.goodreads.com/book/show/52578297-the-midnight-library",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1602190253i/52578297.jpg",
+  },
+  {
+    bookName: "Legends & Lattes",
+    authorName: "Travis Baldree",
+    bookUrl: "https://www.goodreads.com/book/show/61457585-legends-lattes",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1692191618i/61457585.jpg",
+  },
+  {
+    bookName: "Loveless",
+    authorName: "Alice Oseman",
+    bookUrl: "https://www.goodreads.com/book/show/42115981-loveless",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1590592497i/42115981.jpg",
+  },
+  {
+    bookName: "James Acaster's Classic Scrapes",
+    authorName: "James Acaster",
+    bookUrl:
+      "https://www.goodreads.com/book/show/33538599-james-acaster-s-classic-scrapes",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1529275806i/33538599.jpg",
+  },
+  {
+    bookName:
+      "Parsnips, Buttered: How to Win at modern life, one email at a time",
+    authorName: "Joe Lycett",
+    bookUrl: "https://www.goodreads.com/book/show/36342822-parsnips-buttered",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1506970159i/36342822.jpg",
+  },
+  {
+    bookName: "Legendborn (Legendborn, #1)",
+    authorName: "Tracy Deonn",
+    bookUrl: "https://www.goodreads.com/book/show/50892338-legendborn",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1598382979i/50892338.jpg",
+  },
+  {
+    bookName: "A Wizard's Guide to Defensive Baking",
+    authorName: "T. Kingfisher",
+    bookUrl:
+      "https://www.goodreads.com/book/show/54438721-a-wizard-s-guide-to-defensive-baking",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1594185524i/54438721.jpg",
+  },
+  {
+    bookName: "This Is How You Lose the Time War",
+    authorName: "Amal El-Mohtar & Max Gladstone",
+    bookUrl:
+      "https://www.goodreads.com/book/show/45839133-this-is-how-you-lose-the-time-war",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1557954921i/45839133.jpg",
+  },
+  {
+    bookName: "The Long Way to a Small, Angry Planet (Wayfarers, #1)",
+    authorName: "Becky Chambers",
+    bookUrl:
+      "https://www.goodreads.com/book/show/25201920-the-long-way-to-a-small-angry-planet",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1438590529i/25201920.jpg",
+  },
+  {
+    bookName: "One Last Stop",
+    authorName: "Casey McQuiston",
+    bookUrl: "https://www.goodreads.com/book/show/55072663-one-last-stop",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1598396682i/55072663.jpg",
+  },
+  {
+    bookName: "A Natural History of Dragons (The Memoirs of Lady Trent, #1)",
+    authorName: "Marie Brennan",
+    bookUrl:
+      "https://www.goodreads.com/book/show/12974372-a-natural-history-of-dragons",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1680460687i/12974372.jpg",
+  },
+  {
+    bookName: "Sleeping Giants (Themis Files, #1)",
+    authorName: "Sylvain Neuvel",
+    bookUrl: "https://www.goodreads.com/book/show/25733990-sleeping-giants",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1459785141i/25733990.jpg",
+  },
+  {
+    bookName: "Radio Silence",
+    authorName: "Alice Oseman",
+    bookUrl: "https://www.goodreads.com/book/show/40119231-radio-silence",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1526302299i/40119231.jpg",
+  },
+  {
+    bookName: "Vicious (Villains, #1)",
+    authorName: "V.E. Schwab",
+    bookUrl: "https://www.goodreads.com/book/show/45712276-vicious",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1557506782i/45712276.jpg",
+  },
+  {
+    bookName: "Second Hand Curses",
+    authorName: "Drew Hayes",
+    bookUrl: "https://www.goodreads.com/book/show/51520585-second-hand-curses",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1568549871l/51520585.jpg",
+  },
+  {
+    bookName:
+      "The Utterly Uninteresting and Unadventurous Tales of Fred, the Vampire Accountant (Fred, the Vampire Accountant, #1)",
+    authorName: "Drew Hayes",
+    bookUrl:
+      "https://www.goodreads.com/book/show/22838963-the-utterly-uninteresting-and-unadventurous-tales-of-fred-the-vampire-a",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1406647541i/22838963.jpg",
+  },
+  {
+    bookName: "NPCs (Spells, Swords, and Stealth, #1)",
+    authorName: "Drew Hayes",
+    bookUrl: "https://www.goodreads.com/book/show/22088245-npcs",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1400095217i/22088245.jpg",
+  },
+  {
+    bookName: "Super Powereds: Year 1 (Super Powereds, #1)",
+    authorName: "Drew Hayes",
+    bookUrl: "https://www.goodreads.com/book/show/61189958-super-powereds",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1653883532i/61189958.jpg",
+  },
+  {
+    bookName: "Station Eleven",
+    authorName: "Emily St. John Mandel",
+    bookUrl: "https://www.goodreads.com/book/show/23593321-station-eleven",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1416499186i/23593321.jpg",
+  },
+  {
+    bookName: "The Martian",
+    authorName: "Andy Weir",
+    bookUrl:
+      "https://www.goodreads.com/book/show/18007564-the-martian?ref=nav_sb_ss_1_8",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1413706054i/18007564.jpg",
+  },
+  {
+    bookName:
+      "Good Omens: The Nice and Accurate Prophecies of Agnes Nutter, Witch",
+    authorName: "Neil Gaiman & Terry Pratchett",
+    bookUrl: "https://www.goodreads.com/book/show/12070.Good_Omens",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1637805252i/12070.jpg",
+  },
+  {
+    bookName: "Ella Minnow Pea: A Novel in Letters",
+    authorName: "Mark Dunn",
+    bookUrl: "https://www.goodreads.com/book/show/16202.Ella_Minnow_Pea",
+    bookImageUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1347811893i/16202.jpg",
+  },
+];
+
+function shuffleArray(array: any[]) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+shuffleArray(books);
+---
+
+<Layout title="Books">
+  <div class="title">
+    <h1>Bøker!</h1>
+    <p>Her er noen bøker jeg anbefaler</p>
+  </div>
+
+  <div class="book-blocks">
+    {
+      books.map((book) => (
+        <div class="block book">
+          <a href={book.bookUrl} target="_blank">
+            <img
+              src={book.bookImageUrl}
+              alt={`Book cover for ${book.bookName}`}
+            />
+          </a>
+
+          <div class="block-content">
+            <a href={book.bookUrl} target="_blank">
+              <h3>{book.bookName}</h3>
+            </a>
+            <p>{book.authorName}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</Layout>
+
+<style>
+  .title {
+    text-align: center;
+    margin: 2rem 0;
+  }
+  .title h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-blue);
+    border-bottom: 2px solid var(--secondary-blue);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+  }
+  .title p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+  }
+
+  .book-blocks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .block {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    width: 300px;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    border: 1px solid #2a2a2a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    margin: 1rem;
+  }
+  .block:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    border-color: var(--secondary-blue);
+  }
+  .block img {
+    width: 300px;
+    height: 100%;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+  .block:hover img {
+    opacity: 1;
+  }
+  .block-content {
+    padding: 1.5rem;
+  }
+  .block h3 {
+    color: var(--secondary-blue);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+  }
+  .block p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+  .button {
+    display: inline-block;
+    background-color: var(--secondary-blue);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  .button:hover {
+    background-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+</style>
