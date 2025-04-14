@@ -1,14 +1,19 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import profileImage from "../assets/profilbilde.jpeg";
+import { Image } from "astro:assets";
 ---
 
 <Layout title="Sigrid Elnan - Om">
   <div class="about-container">
     <div class="photo-container">
-      <img
-        src="/src/assets/profilbilde.jpeg"
+      <Image
+        src={profileImage}
         alt="Bilde av Sigrid"
         class="profile-photo"
+        loading="lazy"
+        width={400}
+        height={400}
       />
     </div>
 
